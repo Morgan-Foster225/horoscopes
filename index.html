@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zodiac App</title>
+<link rel="stylesheet" href="styles.css/styles.css">
+</head>
+<body>
+
+<div class="card">
+  <h2>Zodiac Sign Form</h2>
+
+  <form id="horoscope-form">
+    <label>Choose your zodiac sign:</label>
+
+    <select id="signSelect" name="signSelect">
+      <option value="">Select your sign</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div class="card result" id="resultCard">
+  <img id="icon" class="icon" />
+  <h3 id="signName"></h3>
+  <p id="dateRange"></p>
+  <p id="horoscope"></p>
+  <p id="luckyNumbers"></p>
+</div>
+
+<script src="JS/script.js"></script>
+</body>
+</html>
