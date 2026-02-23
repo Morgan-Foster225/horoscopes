@@ -115,55 +115,72 @@ const horoscopeData = {
 };
 
 
+// Gets the  references to the dropdown select elements and the form
 const select = document.getElementById("signSelect");
 const form = document.getElementById("horoscope-form");
 
-// populate dropdown
+// Creates the dropdown with zodiac signs
 for (const sign of horoscopeData.horoscopes.astroSigns) {
-  const option = document.createElement("option");
-  option.value = sign.key;
-  option.textContent = sign.sign;
-  select.appendChild(option);
+  const option = document.createElement("option"); // create <option> element
+  option.value = sign.key; // set option value to the sign's unique key
+  option.textContent = sign.sign; // display the sign name in dropdown
+  select.appendChild(option); // add option to the select menu
 }
 
-// submit listener
+// Listen for form submission
 form.addEventListener("submit", onFormSubmit);
 
 function onFormSubmit(event) {
-  event.preventDefault();
+  event.preventDefault(); // stop page from refreshing on submit
 
+  // Collects the form data
   const data = new FormData(event.target);
   const dataObject = Object.fromEntries(data.entries());
 
-  // ⭐ CRITICAL FIX: convert to number
+  //  Converts selected value from string → number
+  // (because keys in the data are numbers)
   const selectedKey = Number(dataObject.signSelect);
 
+  // Checks if user selected anything
   if (dataObject.signSelect === "") {
     alert("Please select a sign!");
     return;
   }
 
+  // Gets the data for the selected sign
   const signData = getSignData(selectedKey);
+
+  // Displays the horoscope info on the page
   displayHoroscope(signData);
 
+  // Resets the form after submission
   form.reset();
 }
 
+
+// Finds and returns a zodiac sign object by its key
 function getSignData(keyParam) {
   return horoscopeData.horoscopes.astroSigns.find(
     sign => sign.key === keyParam
   );
 }
 
-function displayHoroscope(sign) {
-  if (!sign) return;
 
+// Displays horoscope information in the UI
+
+function displayHoroscope(sign) {
+  if (!sign) return; // stop if no sign found
+
+  // Updates image and text fields with sign data
   document.getElementById("icon").src = sign.icon;
   document.getElementById("signName").textContent = "Your sign is " + sign.sign;
   document.getElementById("dateRange").textContent = "Date Range: " + sign.dateRange;
   document.getElementById("horoscope").textContent = sign.dailyHoroscope;
+
+  // Converts lucky numbers array into a comma-separated string
   document.getElementById("luckyNumbers").textContent =
     "Lucky Numbers: " + sign.luckyNumbers.join(", ");
 
+  // Shows the result card section
   document.getElementById("resultCard").style.display = "block";
 }
